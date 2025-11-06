@@ -60,3 +60,36 @@ En el **ESP32**, la validación de certificados se habilita al **cargar el certi
 
 ```cpp
 client.setCACert(root_ca);
+```
+
+---
+
+## ¿Modificar el código de conexión a MQTT para usar un puerto seguro. Sin hacer más cambios verificar que la conexión sigue  funcionando (¿o no?). 
+
+## Respuesta: 
+
+**Evidencia:**
+
+![Prueba de conexión segura](preg1.png)
+
+Cuando se intenta conectar al puerto 8883, el ESP32 no podrá establecer la conexión, porque el servidor requiere validación TLS y el cliente aún no tiene ningún certificado cargado.
+
+
+## Realizar el cambio para validar certificados, verificar que sin más cambios la comunicación falla (sin cargar el certificado al ESP32). . 
+
+## Respuesta: 
+Al modificar el código para usar un puerto seguro (MQTTS) y habilitar la validación de certificados, la comunicación falla si no se carga el certificado correspondiente al ESP32. Esto ocurre porque el cliente no puede validar la autenticidad del servidor, impidiendo establecer una conexión segura
+
+## Agregar los certificados al código y verificar que la comunicación vuelve a funcionar (¿o no?).
+
+**Evidencia:**
+
+![Prueba de conexión segura](PREG3.png)
+
+![Prueba de conexión segura](PREG3CHECK.png)
+
+## Respuesta: 
+Después de agregar los certificados al código (usando espClient.setCACert()), la comunicación vuelve a funcionar correctamente. El ESP32 vuelve a validar el certificado MQTT y restablece la conexión segura sin errores, permitiendo nuevamente la publicación y suscripción de mensajes.
+
+
+
