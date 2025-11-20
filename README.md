@@ -82,170 +82,103 @@ Implementado con:
 
 #### Movimiento
 ```json
-{
-  "dir": "forward",
-  "speed": 50,
-  "duration": 2
-}
-{ "stop": true }
-{ "safe_stop_cm": 30 }
- {
-  "moving": true,
-  "dir": "forward",
-  "speed": 120
-}
-{
-  "cm": 25.4,
-  "obstacle": false
-}
-{
-  "ax": 0.12,
-  "ay": 9.80,
-  "az": 0.03,
-  "gx": 1.22,
-  "gy": 0.03,
-  "gz": -0.51
-}
-{
-  "type": "obstacle",
-  "cm": 12.5
-}
-{ "status": "online" }
-}
-## 5. Dashboard Web (YA INCLUIDO EN EL PROYECTO)
+
+## 🖥️ 5. Dashboard Web (YA INCLUIDO EN EL PROYECTO)
 
 El dashboard permite:
 
-Controlar el vehículo (adelante, atrás, izquierda, derecha)
+- Controlar el vehículo (adelante, atrás, izquierda, derecha)
+- Visualizar telemetría en vivo:
+  - Distancia
+  - Acelerómetro
+  - Giroscopio
+  - Estado del carro
+- Ver alertas del sistema
+- Conexión automática a MQTT por **WSS (WebSockets + TLS)**
 
-Visualizar telemetría en vivo:
+### Tecnologías del dashboard:
 
-Distancia
+- HTML5  
+- CSS3  
+- JavaScript  
+- MQTT.js  
+- Conexión WSS  
 
-Acelerómetro
+---
 
-Giroscopio
+## ⚠️ 6. Limitaciones Actuales
 
-Estado del carro
+- Reconexión WiFi simple (sin backoff exponencial)
+- Parsing JSON manual (recomendado migrar a ArduinoJson)
+- Sin control PID en motores (los giros no son 100% precisos)
+- Movimiento limitado a 5 segundos (definido por constante)
+- Sin validación profunda de payloads (JSON inválido puede romper la lógica)
+- MPU6050 sin calibración automática (puede haber drift con el tiempo)
+- Sin logs en memoria (todo es en vivo; no se guardan datos)
 
-Ver alertas del sistema
+---
 
-Conexión automática a MQTT por WSS (WebSockets + TLS)
+## 🧬 7. Estructura Interna del Firmware
 
-Tecnologías del dashboard:
+### **setup()**
+- Configurar GPIO  
+- Iniciar WiFi  
+- Configurar TLS  
+- Cargar certificados  
+- Conectar a AWS IoT  
+- Suscribirse al topic  
+- Publicar estado inicial  
 
-HTML5
+### **loop()**
+- Mantener MQTT  
+- Controlar motores  
+- Leer distancia  
+- Leer IMU  
+- Detectar obstáculos  
+- Publicar telemetría  
+- Manejar timeout de movimiento  
 
-CSS3
+---
 
-JavaScript
+## 🚀 8. Futuras Mejoras
 
-MQTT.js
+### 🔐 Seguridad
+- Backoff exponencial  
+- Reconexión MQTT automática  
+- Rotación de certificados X.509  
 
-Conexión WSS
-6. Limitaciones Actuales
+### 🧠 Inteligencia
+- Control PID  
+- Fusión de sensores  
+- Mejor lógica de evitar colisiones  
 
-Reconexión WiFi simple
-Sin backoff exponencial.
+### 🔧 Hardware
+- Migrar HC-SR04 → VL53L0X  
+- Agregar encoders en las ruedas  
 
-Parsing JSON manual
-Recomendado migrar a ArduinoJson.
+### 📊 Dashboard
+- Modo oscuro  
+- Mapa del movimiento  
+- Gráficas históricas  
 
-Sin control PID en motores
-Los giros no son 100% precisos.
+### 🧩 Código
+- Modularización completa  
+- Migrar a ArduinoJson  
+- Sistema de logging  
 
-Movimiento limitado a 5 segundos
-Definido por constante.
+---
 
-Sin validación profunda de payloads
-JSON inválido puede romper la lógica.
-
-MPU6050 sin calibración automática
-Puede haber drift con el tiempo.
-
-Sin logs en memoria
-Todo es en vivo; no se guardan datos.
-7. Estructura Interna del Firmware
-setup()
-
-Configurar GPIO
-
-Iniciar WiFi
-
-Configurar TLS
-
-Cargar certificados
-
-Conectar a AWS IoT
-
-Suscribirse al topic
-
-Publicar estado inicial
-
-loop()
-
-Mantener MQTT
-
-Controlar motores
-
-Leer distancia
-
-Leer IMU
-
-Detectar obstáculos
-
-Publicar telemetría
-
-Manejar timeout de movimiento
-
-🚀 8. Futuras Mejoras
-🔐 Seguridad
-
-Backoff exponencial
-
-Reconexión MQTT automática
-
-Rotación de certificados X.509
-
-🧠 Inteligencia
-
-Control PID
-
-Fusión de sensores
-
-Mejor lógica de evitar colisiones
-
-🔧 Hardware
-
-Migrar HC-SR04 → VL53L0X
-
-Agregar encoders en las ruedas
-
-📊 Dashboard
-
-Modo oscuro
-
-Mapa del movimiento
-
-Gráficas históricas
-
-🧩 Código
-
-Modularización completa
-
-Migrar a ArduinoJson
-
-Sistema de logging
-
-📁 9. Documentación
+## 📁 9. Documentación
 
 Documentación en PDF incluida:
 
-Documentación del Proyecto ESP32 Car.pdf
+📄 **Documentación del Proyecto ESP32 Car.pdf**
 
-✔️ 10. Estado del Proyecto
+---
 
-🟢 Carro funcional
-🟢 Dashboard funcional
-🟢 Conexión MQTT con TLS estable
-🔧 Mejoras futuras planificadas
+## ✔️ 10. Estado del Proyecto
+
+🟢 Carro funcional  
+🟢 Dashboard funcional  
+🟢 Conexión MQTT con TLS estable  
+🔧 Mejoras futuras planificadas  
