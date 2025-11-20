@@ -68,7 +68,7 @@ Implementado con:
 
 ---
 
-# 🗂️ 3. Estructura del Proyecto
+### 🗂️ 3. Estructura del Proyecto
 
 # ProyectoCarroServicioHTTP
 
@@ -81,10 +81,9 @@ Implementado con:
 ### **Topic principal:** `sebas/car/cmd`
 
 #### Movimiento
-```json
 
-## 🖥️ 5. Dashboard Web (YA INCLUIDO EN EL PROYECTO)
 
+###5. Dashboard Web 
 El dashboard permite:
 
 - Controlar el vehículo (adelante, atrás, izquierda, derecha)
